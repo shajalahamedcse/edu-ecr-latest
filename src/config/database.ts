@@ -5,7 +5,7 @@ module.exports = {
     username: 'root',
     password: 'Pass.321',
     database: 'example',
-    host: '175.41.175.248',
+    host: '10.10.1.120',
     port: 3306,
     dialect: 'mysql',
     operatorsAliases: process.env.DB_OPERATOR_ALIAS,
