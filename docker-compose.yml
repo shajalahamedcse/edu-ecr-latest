@@ -2,7 +2,6 @@ version: '3.8'
 services:
   app:
     container_name: 107082111359.dkr.ecr.ap-southeast-1.amazonaws.com/qukka-stage:latest
-
     restart: always
     ports:
       - '8000:8000'
