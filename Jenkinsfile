@@ -10,13 +10,9 @@ pipeline {
         
         stage('Cleanup Workspace') {
             steps {
-                cleanWs()
-                sh """
-                echo ${USER}
-                echo "Cleaned Up Workspace For Project"
-                docker build -t shajalahamedcse/app:0.1 .
+                // cleanWs()
+                sh 'echo "Cleaned Up Workspace For Project"'
                 
-                """
             }
         }
 
@@ -26,6 +22,7 @@ pipeline {
                 sh """
                 echo "Running Unit Tests"
                 """
+                sh 'docker build -t shajalahamedcse/app:0.1 .'
             }
         }
 
