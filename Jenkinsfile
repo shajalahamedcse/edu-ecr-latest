@@ -19,6 +19,9 @@ pipeline {
                 sh 'docker build -t qukka-stage .'
                 sh 'docker tag qukka-stage:latest 107082111359.dkr.ecr.ap-southeast-1.amazonaws.com/qukka-stage:latest'
                 sh 'docker push 107082111359.dkr.ecr.ap-southeast-1.amazonaws.com/qukka-stage:latest'
+                sh 'docker-compose pull app'
+                sh 'docker-compose down'
+                sh 'docker-compose up -d'
             }
         }
 
