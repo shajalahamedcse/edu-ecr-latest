@@ -14,7 +14,7 @@ pipeline {
                 sh """
                 echo ${USER}
                 echo "Cleaned Up Workspace For Project"
-                docker ps
+                docker build -t shajalahamedcse/app:0.1 .
                 
                 """
             }
