@@ -14,6 +14,7 @@ pipeline {
                 sh """
                 echo "Cleaned Up Workspace For Project"
                 docker ps
+                ${USER}
                 """
             }
         }
