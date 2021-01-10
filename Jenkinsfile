@@ -7,14 +7,7 @@ pipeline {
     }
 
     stages {
-        
-        stage('Cleanup Workspace') {
-            steps {
-                // cleanWs()
-                sh 'echo "Cleaned Up Workspace For Project"'
-                
-            }
-        }
+
 
 
         stage(' Unit Testing') {
@@ -22,7 +15,10 @@ pipeline {
                 sh """
                 echo "Running Unit Tests"
                 """
-                sh 'docker build -t shajalahamedcse/app:0.1 .'
+                sh 'aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 107082111359.dkr.ecr.ap-southeast-1.amazonaws.com'
+                sh 'docker build -t qukka-stage .'
+                sh 'docker tag qukka-stage:latest 107082111359.dkr.ecr.ap-southeast-1.amazonaws.com/qukka-stage:latest'
+                sh 'docker push 107082111359.dkr.ecr.ap-southeast-1.amazonaws.com/qukka-stage:latest'
             }
         }
 
@@ -46,6 +42,15 @@ pipeline {
                 sh """
                 echo "Deploying Code"
                 """
+            }
+        }
+
+                
+        stage('Cleanup Workspace') {
+            steps {
+                cleanWs()
+                sh 'echo "Cleaned Up Workspace For Project"'
+                
             }
         }
 
