@@ -12,9 +12,10 @@ pipeline {
             steps {
                 cleanWs()
                 sh """
+                echo ${USER}
                 echo "Cleaned Up Workspace For Project"
                 docker ps
-                ${USER}
+                
                 """
             }
         }
