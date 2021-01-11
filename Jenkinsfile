@@ -39,15 +39,26 @@ pipeline {
             }
             steps {
 
-                sh 'ssh -t ubuntu@${STG_SERVER}'
-                sh 'aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ECR_REPO}'
-                sh 'ifconfig'
+                // sh 'ssh -t ubuntu@${STG_SERVER}'
+                // sh 'aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ECR_REPO}'
+                // sh 'ifconfig'
 
-                sh 'docker-compose -f docker-compose-stg.yml pull app'
-                sh 'docker-compose -f docker-compose-stg.yml down'
-                sh 'docker-compose -f docker-compose-stg.yml rm -f'
-                sh 'docker-compose -f docker-compose-stg.yml up -d'
-                sh 'exit'
+                // sh 'docker-compose -f docker-compose-stg.yml pull app'
+                // sh 'docker-compose -f docker-compose-stg.yml down'
+                // sh 'docker-compose -f docker-compose-stg.yml rm -f'
+                // sh 'docker-compose -f docker-compose-stg.yml up -d'
+                // sh 'exit'
+                sh '''
+                #!/bin/bash
+                ssh ubuntu@${STG_SERVER} /compose <<EOF
+                    aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ECR_REPO}
+                    docker-compose -f docker-compose-stg.yml pull app
+                    docker-compose -f docker-compose-stg.yml down
+                    docker-compose -f docker-compose-stg.yml rm -f'
+                    docker-compose -f docker-compose-stg.yml up -d'
+                EOF
+                exit 0
+                '''
             }
         }
 
