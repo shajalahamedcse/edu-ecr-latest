@@ -8,7 +8,7 @@ pipeline {
     }
 
     environment {
-        ${REGION} = 'ap-southeast-1'
+        REGION = 'ap-southeast-1'
         DB_ENGINE    = 'sqlite'
     }
 
@@ -21,7 +21,7 @@ pipeline {
                 sh """
                 echo ""
                 """
-                sh 'aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 107082111359.dkr.ecr.ap-southeast-1.amazonaws.com'
+                sh 'aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin 107082111359.dkr.ecr.ap-southeast-1.amazonaws.com'
                 sh 'docker build -t qukka-stage .'
                 sh 'docker tag qukka-stage:latest 107082111359.dkr.ecr.ap-southeast-1.amazonaws.com/qukka-stage:latest'
                 sh 'docker push 107082111359.dkr.ecr.ap-southeast-1.amazonaws.com/qukka-stage:latest'
