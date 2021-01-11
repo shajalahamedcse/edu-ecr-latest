@@ -11,7 +11,7 @@ pipeline {
         REGION = 'ap-southeast-1'
         ECR_REPO    = '107082111359.dkr.ecr.ap-southeast-1.amazonaws.com'
         STG_IMG_NAME = 'qukka-stage'
-        STG_SERVER = '54.169.172.4'
+        STG_SERVER = '10.10.1.182'
         PROD_SERVER = ''
         PROD_IMAGE_NAME = ''
     }
@@ -29,7 +29,7 @@ pipeline {
                 sh 'docker build -t ${STG_IMG_NAME} .'
                 sh 'docker tag ${STG_IMG_NAME}:latest ${ECR_REPO}/${STG_IMG_NAME}:latest'
                 sh 'docker push ${ECR_REPO}/${STG_IMG_NAME}:latest'
-                sh 'ifconfig'
+                // sh 'ifconfig'
             }
         }
 
@@ -37,30 +37,6 @@ pipeline {
             when {
                 branch 'main'
             }
-            // steps {
-
-            //     // sh 'ssh -t ubuntu@${STG_SERVER}'
-            //     // sh 'aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ECR_REPO}'
-            //     // sh 'ifconfig'
-
-            //     // sh 'docker-compose -f docker-compose-stg.yml pull app'
-            //     // sh 'docker-compose -f docker-compose-stg.yml down'
-            //     // sh 'docker-compose -f docker-compose-stg.yml rm -f'
-            //     // sh 'docker-compose -f docker-compose-stg.yml up -d'
-            //     // sh 'exit'
-            //     sh '''
-            //     ssh ubuntu@${STG_SERVER} >> ENDSSH
-            //         #!/bin/bash
-            //         ifconfig
-            //         whoami
-            //         aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $ECR_REPO
-            //         docker-compose -f docker-compose-stg.yml pull app
-            //         docker-compose -f docker-compose-stg.yml down
-            //         docker-compose -f docker-compose-stg.yml rm -f
-            //         docker-compose -f docker-compose-stg.yml up -d
-            //         ENDSSH
-            //     '''
-            // }
             steps{
             script 
                 {
