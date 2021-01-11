@@ -42,12 +42,11 @@ pipeline {
 
 
                 sh """#!/bin/bash
-                    ssh ubuntu@54.169.172.4 << 'ENDSSH'
+                    ssh ubuntu@54.169.172.4 
                     aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 107082111359.dkr.ecr.ap-southeast-1.amazonaws.com
                     docker-compose down
                     docker-compose rm -f
                     docker-compose up -d
-                    ENDSSH
                 """
 
             }
