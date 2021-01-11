@@ -3,11 +3,6 @@ pipeline {
     agent {
         node {
             label 'master'
-            def remote = [:]
-            remote.name = 'stage'
-            remote.host = '54.169.172.4'
-            remote.user = 'ubuntu'
-            remote.allowAnyHosts = true
         
     }
 
