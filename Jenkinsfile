@@ -32,7 +32,6 @@ pipeline {
 
                 sh """
                     ssh ubuntu@54.169.172.4 >> ENDSSH
-                    cd compose
                     docker-compose down
                     docker-compose rm -f
                     docker-compose up -d
