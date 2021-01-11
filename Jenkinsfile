@@ -41,6 +41,8 @@ pipeline {
                 sh 'ssh ubuntu@${STG_SERVER}'
                 sh 'aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ECR_REPO}'
                 sh 'cd compose'
+                sh 'pwd'
+                sh 'ls'
                 sh 'docker-compose -f docker-compose-stg.yml pull app'
                 sh 'docker-compose -f docker-compose-stg.yml down'
                 sh 'docker-compose -f docker-compose-stg.yml rm -f'
