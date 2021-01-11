@@ -21,7 +21,6 @@ pipeline {
                 sh 'docker push 107082111359.dkr.ecr.ap-southeast-1.amazonaws.com/qukka-stage:latest'
                 sh 'docker-compose down'
                 sh 'docker-compose rm -f'
-                sh 'docker-compose pull' 
                 sh 'docker-compose up -d'
             }
         }
@@ -29,8 +28,12 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 sh """
-                echo "Running Code Analysis"
+                ssh ubuntu@54.169.172.4
                 """
+                sh 'cd compose'
+                sh 'docker-compose down'
+                sh 'docker-compose rm -f'
+                sh 'docker-compose up -d'
             }
         }
 
