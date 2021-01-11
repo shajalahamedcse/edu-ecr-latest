@@ -9,7 +9,9 @@ pipeline {
 
     environment {
         REGION = 'ap-southeast-1'
-        DB_ENGINE    = 'sqlite'
+        ECR_REPO    = '107082111359.dkr.ecr.ap-southeast-1.amazonaws.com'
+        STG_IMG_NAME = 'qukka-stage'
+        STG_SERVER = ''
     }
 
     stages {
@@ -25,8 +27,8 @@ pipeline {
                 sh 'docker build -t qukka-stage .'
                 sh 'docker tag qukka-stage:latest 107082111359.dkr.ecr.ap-southeast-1.amazonaws.com/qukka-stage:latest'
                 sh 'docker push 107082111359.dkr.ecr.ap-southeast-1.amazonaws.com/qukka-stage:latest'
-                sh 'docker-compose down'
                 sh 'docker-compose pull app'
+                sh 'docker-compose down'
                 sh 'docker-compose rm -f'
                 sh 'docker-compose up -d'
             }
@@ -40,7 +42,7 @@ pipeline {
 
 
                 sh """#!/bin/bash
-                    ssh ubuntu@54.169.172.4 >> ENDSSH
+                    ssh ubuntu@54.169.172.4 << 'ENDSSH'
                     aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 107082111359.dkr.ecr.ap-southeast-1.amazonaws.com
                     docker-compose down
                     docker-compose rm -f
