@@ -29,6 +29,7 @@ pipeline {
                 sh 'docker build -t ${STG_IMG_NAME} .'
                 sh 'docker tag ${STG_IMG_NAME}:latest ${ECR_REPO}/${STG_IMG_NAME}:latest'
                 sh 'docker push ${ECR_REPO}/${STG_IMG_NAME}:latest'
+                sh 'ifconfig'
             }
         }
 
@@ -40,9 +41,7 @@ pipeline {
 
                 sh 'ssh ubuntu@${STG_SERVER}'
                 sh 'aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ECR_REPO}'
-                sh 'pwd'
-                sh 'ls'
-                sh 'cd compose'
+                sh 'ifconfig'
 
                 sh 'docker-compose -f docker-compose-stg.yml pull app'
                 sh 'docker-compose -f docker-compose-stg.yml down'
