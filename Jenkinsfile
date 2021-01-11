@@ -41,13 +41,10 @@ pipeline {
             script 
                 {
                     sh """ssh ubuntu@${STG_SERVER} << EOF 
-                    ifconfig
                     aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $ECR_REPO
-                    pwd
-                    ls
-                    docker-compose -f docker-compose-stg.yml pull app
                     docker-compose -f docker-compose-stg.yml down
                     docker-compose -f docker-compose-stg.yml rm -f
+                    docker-compose -f docker-compose-stg.yml pull app
                     docker-compose -f docker-compose-stg.yml up -d
                     exit
                     EOF"""
@@ -60,12 +57,7 @@ pipeline {
                 branch 'develop'
             }
             steps {
-                sh """
-                echo "Building Artifact"
-                """
 
-                sh """
-                echo "Deploying Code"
                 """
             }
         }
