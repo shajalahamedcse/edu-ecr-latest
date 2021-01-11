@@ -50,7 +50,7 @@ pipeline {
                 // sh 'exit'
                 sh '''
                 #!/bin/bash
-                ssh ubuntu@${STG_SERVER} / <<EOF
+                ssh ubuntu@${STG_SERVER} <<EOF
                     ifconfig
                     aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ECR_REPO}
                     docker-compose -f docker-compose-stg.yml pull app
