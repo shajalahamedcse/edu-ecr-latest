@@ -9,4 +9,6 @@ RUN yarn
 
 COPY . /app/
 
+EXPOSE 8000
+
 CMD ["yarn", "start"]
