@@ -50,7 +50,7 @@ pipeline {
                 //     docker-compose up -d
                 //     ENDSSH
                 // """
-                sh 'ssh ubuntu@{STG_SERVER}'
+                sh 'ssh ubuntu@${STG_SERVER}'
                 sh 'aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ECR_REPO}'
                 sh 'docker-compose pull app'
                 sh 'docker-compose down'
