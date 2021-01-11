@@ -49,15 +49,15 @@ pipeline {
                 // sh 'docker-compose -f docker-compose-stg.yml up -d'
                 // sh 'exit'
                 sh '''
-                ssh ubuntu@${STG_SERVER} '
+                ssh ubuntu@${STG_SERVER} >> ENDSSH
                     ifconfig
                     whoami
-                    aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ECR_REPO}
+                    aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $ECR_REPO
                     docker-compose -f docker-compose-stg.yml pull app
                     docker-compose -f docker-compose-stg.yml down
-                    docker-compose -f docker-compose-stg.yml rm -f'
-                    docker-compose -f docker-compose-stg.yml up -d'
-                    '
+                    docker-compose -f docker-compose-stg.yml rm -f
+                    docker-compose -f docker-compose-stg.yml up -d
+                    ENDSSH
                 '''
             }
         }
