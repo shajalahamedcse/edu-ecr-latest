@@ -7,7 +7,6 @@ pipeline {
             remote.name = 'stage'
             remote.host = '54.169.172.4'
             remote.user = 'ubuntu'
-            remote.password = 'password'
             remote.allowAnyHosts = true
         
     }
@@ -36,7 +35,7 @@ pipeline {
 
 
                 sh """
-                ssh ubuntu@54.169.172.4
+                ssh ubuntu@54.169.172.4 cd composer
                 """
 
             }
