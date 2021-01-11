@@ -3,7 +3,13 @@ pipeline {
     agent {
         node {
             label 'master'
-        }
+            def remote = [:]
+            remote.name = 'stage'
+            remote.host = '54.169.172.4'
+            remote.user = 'ubuntu'
+            remote.password = 'password'
+            remote.allowAnyHosts = true
+        
     }
 
     stages {
@@ -27,13 +33,12 @@ pipeline {
 
         stage('Code Analysis') {
             steps {
+
+
                 sh """
                 ssh ubuntu@54.169.172.4
                 """
-                sh 'cd compose'
-                sh 'docker-compose down'
-                sh 'docker-compose rm -f'
-                sh 'docker-compose up -d'
+
             }
         }
 
